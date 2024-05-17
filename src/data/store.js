@@ -9,7 +9,17 @@ const useStore = create(set => ({
 	todayName: getToday(),
 	// TODO: du behöver en funktion setTodayName för att kunna testa appen med olika veckodagar
 
+	addTodo : (todo) => set(state => {
+		const newTodo = {...todo, id: Date.now()}
+		return { todos: [...state.todos, newTodo] };
+	}),
 
+	removeTodo: (id) => set(state => ({
+		todos: state.todos.filter(todo => todo.id !== id)
+	})),
+	
+	setTodos: (newTodos) => set({ todos: newTodos }),
+	
 	toggleTodo: id => set(state => {
 		// Det är möjligt att det finns en liiiiiten bug här, som man i så fall skulle upptäcka när man testar 😇
 		return {

@@ -1,7 +1,10 @@
+import {useStore} from '../../data/store'
+
 const Item = ({ item }) => {
 	let itemClass = ''
 	if( item.done ) itemClass += 'done'
 	if( item.late ) itemClass += 'due'
+	const {removeTodo} = useStore(state => ({removeTodo: state.removeTodo}))
 
 	const handleChange = () => { /* TODO */ }
 
@@ -12,8 +15,8 @@ const Item = ({ item }) => {
 				{item.text}
 			</label>
 			{/* <span title="Snooza">💤</span> */}
-			<span title="Ändra">✍️</span>
-			<span title="Ta bort">🗑️</span>
+			<span title="Ändra" className='cursor' >✍️</span>
+			<span title="Ta bort" className='cursor' onClick={() => removeTodo(item.id)}>🗑️</span>
 		</div>
 	)
 }
