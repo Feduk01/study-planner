@@ -2,10 +2,7 @@ import Item from "./Item"
 import {useStore} from '../../data/store'
 import {useState} from "react"
 
-// OBS, det är tillåtet att lägga till flera props
-// När du testar, rendera komponenten med olika värden på props
 const Day = ({ day, dayName }) => {
-	// TODO: implement rest of week
 	const addTodo = useStore(state => state.addTodo)
 	const [newTodoText, setNewTodoText] = useState('')
 

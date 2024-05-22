@@ -13,7 +13,7 @@ const Main = () => {
 		<main>
 			<div className="day-view">
 				{days.map((d, index) => (
-					<Day day={d} dayName={dayNames[index]} key={dayNames[index] /* TODO kom på något sätt att ge varje dag en unik "key" */} />
+					<Day day={d} dayName={dayNames[index]} key={dayNames[index]} />
 				))}
 			</div>
 

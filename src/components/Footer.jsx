@@ -1,9 +1,21 @@
-// TODO: hämta dagens datum från store
-const Footer = () => (
-	<footer>
-		<p> Idag är det: 2024/05/24 </p>
-		<p> Studieguide | 2024 </p>
-	</footer>
-)
+import React from 'react';
 
-export default Footer
+const Footer = () => {
+  const getCurrentDate = () => {
+    const today = new Date();
+    const day = today.getDate();
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
+    return `${day}/0${month}/${year}`;
+  };
+
+  return (
+    <footer>
+      <p>{getCurrentDate()}</p>
+      <p>Studieguide | 2024</p>
+    </footer>
+  );
+}
+
+export default Footer;
+

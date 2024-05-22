@@ -1,10 +1,10 @@
 
-const PrioItem = ({ item, num }) => {
+const PrioItem = ({ item = {}, num, dataCy }) => {
 	let itemClass = 'item'
 	if( item.late ) itemClass += ' due'
 
 	return (
-		<div className={itemClass}>
+		<div className={itemClass} data-cy={dataCy} >
 			{num}. {item.text}
 		</div>
 	)

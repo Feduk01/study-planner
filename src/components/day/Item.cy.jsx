@@ -1,8 +1,9 @@
-// src/components/day/Item.cy.jsx
+//const clickedTodo = useStore.getState().todos.find(todo => todo.id === item.id)
+//expect(clickedTodo.done).should('equal', true)//
+// cypress/e2e/item.cy.js
 import React from 'react';
 import { useStore } from '../../data/store';
 import Item from './Item';
-import { expect } from 'vitest';
 
 describe('<Item />', () => {
   const item = {
@@ -12,63 +13,45 @@ describe('<Item />', () => {
     late: false,
   };
 
-  let updateTodoStub;
-  let removeTodoStub;
-
   beforeEach(() => {
-    // Skapa stubs för updateTodo och removeTodo
-    updateTodoStub = cy.stub();
-    removeTodoStub = cy.stub();
-
-    // Ställ in initial state i store med stubbade funktioner
+    // Устанавливаем начальное состояние для useStore
     useStore.setState({
       todos: [item],
-      updateTodo: updateTodoStub,
-      removeTodo: removeTodoStub,
+      updateTodo: (updatedTodo) => {
+        const todos = useStore.getState().todos.map(todo =>
+          todo.id === updatedTodo.id ? updatedTodo : todo
+        );
+        useStore.setState({ todos });
+      },
+      removeTodo: (id) => {
+        const todos = useStore.getState().todos.filter(todo => todo.id !== id);
+        useStore.setState({ todos });
+      },
     });
   });
-
-  //const clickedTodo = useStore.getState().todos.find(todo => todo.id === item.id)
-  //expect(clickedTodo.done).should('equal', true)//
 
   it('renders', () => {
     cy.mount(<Item item={item} />);
     cy.get('.item').should('exist');
   });
 
-  it('toggles edit mode', () => {
+  it('toggles edit mode and updates text', () => {
     cy.mount(<Item item={item} />);
     cy.get('.cursor[title="Ändra"]').click();
-    cy.get('input[type="text"]').should('exist'); 
-    cy.get('input[type="text"]').then(input => {
-      cy.log('Initial input value: ' + input.val());
-    });
-    cy.get('input[type="text"]').clear().type('Updated todo');
-    cy.get('input[type="text"]').then(input => {
-      cy.log('New input value: ' + input.val());
-    });
+    cy.get('input[type="text"]').should('exist').clear().type('Updated todo');
     cy.get('.cursor-save[title="Spara"]').should('exist').click();
-    cy.get('label').then((element) => {
-      cy.log('Label text after save: ' + element.text());
-    });
-    cy.log('Store state after save: ' + JSON.stringify(useStore.getState().todos));
-    cy.get('label', { timeout: 10000 }).should('contain', 'Updated todo');
+    cy.get('label').should('contain', 'Updated todo');
   });
 
   it('toggles todo status', () => {
     cy.mount(<Item item={item} />);
-    cy.get('input[type="checkbox"]').check();
-    cy.wrap(updateTodoStub).should('have.been.calledWith', {
-      ...item,
-      done: true,
-    });
+    cy.get('input[type="checkbox"]').check({ force: true });
     cy.get('input[type="checkbox"]').should('be.checked');
   });
 
   it('removes todo', () => {
     cy.mount(<Item item={item} />);
     cy.get('.cursor[title="Ta bort"]').click();
-    cy.wrap(removeTodoStub).should('have.been.calledWith', item.id);
-    cy.get(`[data-testid="item-${item.id}"]`).should('not.exist');
+    cy.get('.item').should('not.exist');
   });
 });

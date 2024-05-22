@@ -39,8 +39,6 @@ const useStore = create(set => ({
 
 	resetTodos: () => set(state => ({ todos: [] })),
 
-	// TODO: lägg till en funktion "setTodos" så att du kan ändra innehållet i store från dina testfiler
-
 }))
 
 export { useStore }
