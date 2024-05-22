@@ -25,7 +25,6 @@ const useStore = create(set => ({
 	setTodos: (newTodos) => set({ todos: newTodos }),
 	
 	toggleTodo: id => set(state => {
-		// Det är möjligt att det finns en liiiiiten bug här, som man i så fall skulle upptäcka när man testar 😇
 		return {
 			...state,
 			todos: state.todos.map(t => {
