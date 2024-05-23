@@ -1,7 +1,7 @@
 import React from 'react';
 import Day from './Day';
 import { useStore } from '../../data/store';
-
+//Test istället för mock
 const mockTodos = [
   { id: 1, text: 'Test todo 1', done: false, late: false },
   { id: 2, text: 'Test todo 2', done: true, late: false },

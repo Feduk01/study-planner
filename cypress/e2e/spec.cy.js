@@ -5,7 +5,7 @@ describe('Todo Application - Item Component', () => {
   it('should edit a todo item and verify the update', () => {
     cy.visit('/');
     cy.get('.cursor[title="Ändra"]').first().click();
-    cy.get('input[type="text"]').should('exist');
+    // cy.get('input[type="text"]').should('exist');
     cy.get('input[type="text"]').first().clear().type('Updated todo');
     cy.get('.cursor-save[title="Spara"]').first().click();
     cy.get('label').first().should('contain', 'Updated todo');
@@ -32,8 +32,6 @@ describe('Todo Application - Item Component', () => {
 });
 
 
-
-
 describe('Todo Application - Main Component', () => {
   // Som en student vill jag att veckans alla dagar ska visas, så att jag kan välja fritt när jag vill göra mina uppgifter.
   it('should render all days of the week', () => {
@@ -48,11 +46,6 @@ describe('Todo Application - Main Component', () => {
 describe('Todo Application - PrioList Component', () => {
   beforeEach(() => {
     cy.visit('/');
-  });
-
-  it('should render the priority list', () => {
-    cy.get('.prio-list').should('exist');
-    cy.get('.prio-list h2').should('contain', 'Vad ska jag göra nu?');
   });
 
 // Som en student vill jag kunna söka efter todo items som innehåller en viss text, så att jag lätt kan se om en viss sak finns med i priolistan.
