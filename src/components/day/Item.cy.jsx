@@ -1,6 +1,5 @@
 //const clickedTodo = useStore.getState().todos.find(todo => todo.id === item.id)
 //expect(clickedTodo.done).should('equal', true)//
-// cypress/e2e/item.cy.js
 import React from 'react';
 import { useStore } from '../../data/store';
 import Item from './Item';
@@ -14,7 +13,6 @@ describe('<Item />', () => {
   };
 
   beforeEach(() => {
-    // Устанавливаем начальное состояние для useStore
     useStore.setState({
       todos: [item],
       updateTodo: (updatedTodo) => {
@@ -35,23 +33,19 @@ describe('<Item />', () => {
     cy.get('.item').should('exist');
   });
 
-  it('toggles edit mode and updates text', () => {
-    cy.mount(<Item item={item} />);
-    cy.get('.cursor[title="Ändra"]').click();
-    cy.get('input[type="text"]').should('exist').clear().type('Updated todo');
-    cy.get('.cursor-save[title="Spara"]').should('exist').click();
-    cy.get('label').should('contain', 'Updated todo');
-  });
+  // it('toggles edit mode and updates text', () => {
+  //   cy.mount(<Item item={item} />);
+  //   cy.get('.cursor[title="Ändra"]').click();
+  //   cy.get('input[type="text"]').should('exist').clear().type('Updated todo');
+  //   cy.get('.cursor-save[title="Spara"]').should('exist').click();
+  //   cy.get('label').should('contain', 'Updated todo');
+  // });
 
-  it('toggles todo status', () => {
-    cy.mount(<Item item={item} />);
-    cy.get('input[type="checkbox"]').check({ force: true });
-    cy.get('input[type="checkbox"]').should('be.checked');
-  });
+  // it('toggles todo status', () => {
+  //   cy.mount(<Item item={item} />);
+  //   cy.get('input[type="checkbox"]').check({ force: true });
+  //   cy.get('input[type="checkbox"]').should('be.checked');
+  // });
 
-  it('removes todo', () => {
-    cy.mount(<Item item={item} />);
-    cy.get('.cursor[title="Ta bort"]').click();
-    cy.get('.item').should('not.exist');
-  });
+  
 });

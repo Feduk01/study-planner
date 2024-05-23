@@ -20,7 +20,18 @@ describe('Todo Application - Item Component', () => {
       cy.get(`.item[data-testid="${todoId}"]`).should('not.exist');
     });
   });
+
+  it('should toggle todo status', () => {
+    cy.visit('/');
+    cy.get('.item').first().within(() => {
+      cy.get('input[type="checkbox"]').should('exist').and('be.checked');
+      cy.get('input[type="checkbox"]').uncheck();
+      cy.get('input[type="checkbox"]').should('not.be.checked');
+    });
+  });
 });
+
+
 
 
 describe('Todo Application - Main Component', () => {
@@ -53,6 +64,23 @@ describe('Todo Application - PrioList Component', () => {
     cy.get('[data-testid="prio-items"] [data-cy="prio-item"]').each(($item) => {
       cy.log($item.text()); 
       cy.wrap($item).should('contain', searchText);
+    });
+  });
+});
+
+describe('Todo Application - Day Component', () => {
+  beforeEach(() => {
+    cy.visit('/');
+  });
+
+  // Lägga till en ny todo (gick inte att testa i komponent test)
+  it('adds a new todo item', () => {
+    const newTodoText = 'New test todo';
+    cy.contains('Måndag').should('exist');
+    cy.get('input[placeholder="Ny uppgift"]').first().type(newTodoText);
+    cy.get('button').contains('Lägg till').click();
+    cy.get('.day').first().within(() => {
+    cy.get('.item').last().should('contain', newTodoText);
     });
   });
 });

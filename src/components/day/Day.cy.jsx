@@ -29,11 +29,11 @@ describe('<Day />', () => {
     cy.get('.item').should('have.length', mockTodos.length);
   });
 
-  it('adds a new todo item', () => {
-    cy.mount(<Day day={mockTodos} dayName="Måndag" />);
-    const newTodoText = 'New test todo';
-    cy.get('input[placeholder="Ny uppgift"]').type(newTodoText);
-    cy.get('button').contains('Lägg till').click();
-    cy.get('.item').last().should('contain', newTodoText);
-  });
+  // it('adds a new todo item', () => {
+  //   cy.mount(<Day day={mockTodos} dayName="Måndag" />);
+  //   const newTodoText = 'New test todo';
+  //   cy.get('input[placeholder="Ny uppgift"]').type(newTodoText);
+  //   cy.get('button').contains('Lägg till').click();
+  //   cy.get('.item').last().should('contain', newTodoText);
+  // });
 });
