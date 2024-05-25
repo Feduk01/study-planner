@@ -1,5 +1,3 @@
-//const clickedTodo = useStore.getState().todos.find(todo => todo.id === item.id)
-//expect(clickedTodo.done).should('equal', true)//
 import React from 'react';
 import { useStore } from '../../data/store';
 import Item from './Item';
@@ -18,7 +16,11 @@ describe('<Item />', () => {
     cy.get('.item').should('exist');
   });
 
-  
+  it('renders checkbox and text', () => {
+    cy.mount(<Item item={item} />);
+    cy.get('input[type="checkbox"]').should('exist');
+    cy.get('label').should('exist').and('contain', 'Test todo');
+  });
 
   
 });
